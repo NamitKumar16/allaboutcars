@@ -23,7 +23,7 @@ class AdminPostController extends Controller
     {
         Post::create(array_merge($this->validatePost(), [
             'user_id' => request()->user()->id,
-            'thumbnail' => request()->post()->thumbnail
+            'thumbnail' => request()->thumbnail
         ]));
 
         return redirect('/');
@@ -37,11 +37,6 @@ class AdminPostController extends Controller
     public function update(Post $post)
     {
         $attributes = $this->validatePost($post);
-
-        if ($attributes['thumbnail'] ?? false) {
-            $attributes['thumbnail'] = request()->post()->thumbnail;
-        }
-
         $post->update($attributes);
 
         return back()->with('success', 'Post Updated!');
