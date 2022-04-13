@@ -23,7 +23,7 @@ class AdminPostController extends Controller
     {
         Post::create(array_merge($this->validatePost(), [
             'user_id' => request()->user()->id,
-            'thumbnail' => request()->file('thumbnail')->store('thumbnails')
+            'thumbnail' => request()->post()->thumbnail
         ]));
 
         return redirect('/');
@@ -39,7 +39,7 @@ class AdminPostController extends Controller
         $attributes = $this->validatePost($post);
 
         if ($attributes['thumbnail'] ?? false) {
-            $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
+            $attributes['thumbnail'] = request()->post()->thumbnail;
         }
 
         $post->update($attributes);
@@ -60,7 +60,7 @@ class AdminPostController extends Controller
 
         return request()->validate([
             'title' => 'required',
-            'thumbnail' => $post->exists ? ['image'] : ['required', 'image'],
+            'thumbnail' => 'required',
             'slug' => ['required', Rule::unique('posts', 'slug')->ignore($post)],
             'excerpt' => 'required',
             'body' => 'required',

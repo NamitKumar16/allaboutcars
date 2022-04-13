@@ -7,10 +7,10 @@
             <x-form.input name="slug" :value="old('slug',$post->slug)"/>
             <div class="flex">
                 <div class="flex-1">
-                    <x-form.input name="thumbnail" type="file" :value="old('thumbnail',$post->thumbnail)"/>
+                    <x-form.input name="thumbnail" :value="old('thumbnail',$post->thumbnail)"/>
                 </div>
 
-                <img src="{{ asset('storage/' . $post->thumbnail) }}" class="rounded-xl ml-6 mt-5" width="150">
+                <img src="{{ $post->thumbnail }}" class="rounded-xl ml-6 mt-5" width="150">
             </div>
             <x-form.textarea name="excerpt">{{ old('excerpt',$post->excerpt) }}</x-form.textarea>
             <x-form.textarea name="body">{{ old('body',$post->body) }}</x-form.textarea>
